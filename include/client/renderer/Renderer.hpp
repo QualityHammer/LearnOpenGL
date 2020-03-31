@@ -25,7 +25,6 @@ namespace Client {
 
         sdl::Window m_window;
         gl::Shader m_shader;
-        gl::Shader m_newShader;
         std::vector<Model> m_models;
         bool m_wireframe;
     };

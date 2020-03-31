@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <utility>
+#include <cmath>
 
 #include "client/ClientOptions.hpp"
 #include "client/renderer/Renderer.hpp"
@@ -10,8 +11,8 @@
 
 namespace Client {
 
-    Renderer::Renderer() : m_window{}, m_shader{"simple", "simple"}, 
-            m_newShader{"simple", "yellow"}, m_models{}, m_wireframe{false} {
+    Renderer::Renderer() : m_window{}, m_shader{"simple", "color"}, 
+            m_models{}, m_wireframe{false} {
         init();
     }
 
@@ -19,6 +20,7 @@ namespace Client {
         glViewport(0, 0,
                 Client::ClientOptions::SCREEN_WIDTH,
                 Client::ClientOptions::SCREEN_HEIGHT);
+
         std::vector<GLfloat> vertices0{{
                 -0.5f,  -0.5f, 0.0f,
                  0.0f,  -0.5f, 0.0f,
@@ -56,6 +58,9 @@ namespace Client {
         glClear(GL_COLOR_BUFFER_BIT);
 
         m_shader.bind();
+        int vertColorLocation{glGetUniformLocation(m_shader.ID, "color")};
+        glUniform4f(vertColorLocation, 0.0f, 0.5f, 0.0f, 1.0f);
+
         for (const auto &model : m_models) {
             model.render();
         }
@@ -63,7 +68,7 @@ namespace Client {
 
         m_window.swapWindow();
 
-        SDL_Delay(10);
+        SDL_Delay(100);
     }
 
     void Renderer::toggleWireframe() {
