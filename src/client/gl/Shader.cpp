@@ -71,11 +71,11 @@ namespace gl {
         glDeleteShader(fragment);
     }
 
-    void Shader::bind() {
+    void Shader::bind() const {
         glUseProgram(ID);
     }
 
-    void Shader::unbind() {
+    void Shader::unbind() const {
         glUseProgram(0);
     }
     

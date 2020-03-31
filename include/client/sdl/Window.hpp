@@ -16,7 +16,7 @@ namespace sdl {
         Window();
         ~Window();
 
-        void swapWindow();
+        void swapWindow() const;
     private:
         Status init();
 

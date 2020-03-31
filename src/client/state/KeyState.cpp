@@ -17,7 +17,7 @@ namespace Client {
         }
     }
 
-    bool KeyState::find(SDL_Keycode key) {
+    bool KeyState::find(SDL_Keycode key) const {
         return (state.count(key) > 0);
     }
 

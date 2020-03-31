@@ -27,7 +27,7 @@ namespace Client {
         }
     }
 
-    void Engine::render() {
+    void Engine::render() const {
         m_renderer.render();
     }
 

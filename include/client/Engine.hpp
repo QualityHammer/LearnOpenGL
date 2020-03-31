@@ -5,8 +5,6 @@
 #include "client/state/KeyState.hpp"
 
 namespace Client {
-    class KeyState;
-
     class Engine final {
     public:
         enum class Status {
@@ -20,7 +18,7 @@ namespace Client {
         void runClient();
     private:
         void getKeys();
-        void render();
+        void render() const;
 
         Status m_status;
         Renderer m_renderer;

@@ -11,7 +11,7 @@ namespace Client {
     public:
         KeyState();
         
-        bool find(SDL_Keycode key);
+        bool find(SDL_Keycode key) const;
         void resetKey(SDL_Keycode key);
 
         std::unordered_map<SDL_Keycode, bool> state;

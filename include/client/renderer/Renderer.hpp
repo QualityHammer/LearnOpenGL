@@ -18,7 +18,7 @@ namespace Client {
 
         Renderer();
 
-        void render();
+        void render() const;
         void toggleWireframe();
     private:
         Status init();

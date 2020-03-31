@@ -21,39 +21,25 @@ namespace Client {
                 Client::ClientOptions::SCREEN_WIDTH,
                 Client::ClientOptions::SCREEN_HEIGHT);
 
-        std::vector<GLfloat> vertices0{{
+        std::vector<GLfloat> vertices{{
                 -0.5f,  -0.5f, 0.0f,
                  0.0f,  -0.5f, 0.0f,
                 -0.25f,  0.5f, 0.0f,
-        }};
-        std::vector<GLfloat> vertices1{{
-                 0.0f,  -0.5f, 0.0f,
                  0.25f,  0.5f, 0.0f,
-                 0.5f,  -0.5f, 0.0f
+                 0.5f,  -0.5f, 0.0f,
         }};
-        std::vector<GLfloat> vertices2{{
-                -0.25f,  0.5f, 0.0f,
-                 0.0f,  -0.5f, 0.0f,
-                 0.25f,  0.5f, 0.0f
-        }};
-        std::vector<GLuint> indices0{{
+        std::vector<GLuint> indices{{
                 0, 1, 2,
-        }};
-        std::vector<GLuint> indices1{{
-                0, 1, 2
-        }};
-        std::vector<GLuint> indices2{{
-                0, 1, 2
+                1, 2, 3,
+                1, 3, 4
         }};
         
-        m_models.push_back(Model{vertices0, indices0});
-        m_models.push_back(Model{vertices1, indices1});
-        m_models.push_back(Model{vertices2, indices2});
+        m_models.push_back(Model{vertices, indices});
 
         return Status::Good;
     }
 
-    void Renderer::render() {
+    void Renderer::render() const {
         glClearColor(0.2f, 0.3f, 0.4f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -68,7 +54,7 @@ namespace Client {
 
         m_window.swapWindow();
 
-        SDL_Delay(100);
+        SDL_Delay(10);
     }
 
     void Renderer::toggleWireframe() {

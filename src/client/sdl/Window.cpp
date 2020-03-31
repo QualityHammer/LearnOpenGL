@@ -77,7 +77,7 @@ namespace sdl {
         return Status::Good;
     }
 
-    void Window::swapWindow() {
+    void Window::swapWindow() const {
         SDL_GL_SwapWindow(m_mainWindow); 
     }
 

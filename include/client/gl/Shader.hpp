@@ -10,8 +10,8 @@ namespace gl {
     public:
         Shader(const std::string &vertexPath, const std::string &fragmentPath);
 
-        void bind();
-        void unbind();
+        void bind() const;
+        void unbind() const;
 
         GLuint ID;
     private:
