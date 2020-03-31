@@ -11,7 +11,7 @@
 
 namespace Client {
 
-    Renderer::Renderer() : m_window{}, m_shader{"simple", "color"}, 
+    Renderer::Renderer() : m_window{}, m_shader{"color", "color"}, 
             m_models{}, m_wireframe{false} {
         init();
     }
@@ -22,11 +22,11 @@ namespace Client {
                 Client::ClientOptions::SCREEN_HEIGHT);
 
         std::vector<GLfloat> vertices{{
-                -0.5f,  -0.5f, 0.0f,
-                 0.0f,  -0.5f, 0.0f,
-                -0.25f,  0.5f, 0.0f,
-                 0.25f,  0.5f, 0.0f,
-                 0.5f,  -0.5f, 0.0f,
+                -0.5f,  -0.5f, 0.0f,    1.0f, 0.0f, 0.0f,
+                 0.0f,  -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,
+                -0.25f,  0.5f, 0.0f,    0.0f, 0.0f, 1.0f,
+                 0.25f,  0.5f, 0.0f,    1.0f, 0.0f, 1.0f,
+                 0.5f,  -0.5f, 0.0f,    0.0f, 1.0f, 1.0f,
         }};
         std::vector<GLuint> indices{{
                 0, 1, 2,
@@ -44,8 +44,6 @@ namespace Client {
         glClear(GL_COLOR_BUFFER_BIT);
 
         m_shader.bind();
-        int vertColorLocation{glGetUniformLocation(m_shader.ID, "color")};
-        glUniform4f(vertColorLocation, 0.0f, 0.5f, 0.0f, 1.0f);
 
         for (const auto &model : m_models) {
             model.render();

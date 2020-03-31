@@ -18,8 +18,11 @@ namespace gl {
         addVBO(vertices);
         addEBO(indices);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 
-                3 * sizeof(GLfloat), (GLvoid*) 0);
+                6 * sizeof(GLfloat), (GLvoid*) 0);
         glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 
+                6 * sizeof(GLfloat), (GLvoid*) (3 * sizeof(GLfloat)));
+        glEnableVertexAttribArray(1);
         unbind();
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
