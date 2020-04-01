@@ -18,7 +18,7 @@ namespace gl {
 
     void TexturedModel::render() const {
         bind();
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        m_model.render();
         unbind();
     }
 

@@ -50,6 +50,7 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/
     ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    ${GLM_INCLUDE_DIR}
     ${SDL2_INCLUDE_DIR}
 )
 
@@ -60,5 +61,6 @@ add_subdirectory(dependencies)
 
 target_link_libraries(${PROJECT_NAME}
     glad
+    glm
     ${SDL2_LIBRARY}
 )
