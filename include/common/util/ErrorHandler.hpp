@@ -9,6 +9,7 @@
 enum class ErrorType : unsigned int {
     GLAD,               // 0
     SHADER,             // 1
+    IMAGE,              // 2
     TYPE_COUNT          // Number of error types
 };
 
@@ -18,6 +19,7 @@ enum class ErrorMsg : unsigned int {
     COMPILATION_ERROR,  // 2
     LINKING_ERROR,      // 3
     GLAD_GL_INIT_ERROR, // 4
+    IMAGE_LOAD_ERROR,   // 5
     MSG_COUNT           // Number of error messages
 };
 

@@ -1,17 +1,19 @@
 #include <iostream>
-#include "client/renderer/Model.hpp"
+#include "client/gl/Model.hpp"
 
-namespace Client {
+namespace gl {
+
+    Model::Model() : m_vertexArray{} {}
 
     Model::Model(const std::vector<GLfloat>& vertices,
-            const std::vector<GLuint>& indices) :
-    m_vertexArray{vertices, indices} {}
+            const std::vector<GLuint>& indices)
+            : m_vertexArray{vertices, indices} {}
 
     Model::Model(const Model& other) 
-    : m_vertexArray{other.m_vertexArray} {}
+            : m_vertexArray{other.m_vertexArray} {}
 
     Model::Model(Model&& other)
-    : m_vertexArray{} {
+            : m_vertexArray{} {
         std::swap(m_vertexArray, other.m_vertexArray);
     }
 

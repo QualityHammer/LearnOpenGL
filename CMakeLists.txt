@@ -6,9 +6,12 @@ add_executable(${PROJECT_NAME}
     src/Game.cpp
     src/client/Engine.cpp
     src/client/gl/Shader.cpp
+    src/client/gl/Image.cpp
+    src/client/gl/Texture.cpp
     src/client/gl/GLErrors.cpp
     src/client/gl/VertexArray.cpp
-    src/client/renderer/Model.cpp
+    src/client/gl/Model.cpp
+    src/client/gl/TexturedModel.cpp
     src/client/renderer/Renderer.cpp
     src/client/state/KeyState.cpp
     src/client/sdl/Window.cpp
@@ -45,6 +48,7 @@ target_compile_options(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/
     ${CMAKE_CURRENT_SOURCE_DIR}/include/
     ${SDL2_INCLUDE_DIR}
 )
@@ -52,7 +56,7 @@ target_include_directories(${PROJECT_NAME}
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
-add_subdirectory(include)
+add_subdirectory(dependencies)
 
 target_link_libraries(${PROJECT_NAME}
     glad

@@ -11,7 +11,7 @@
 
 namespace Client {
 
-    Renderer::Renderer() : m_window{}, m_shader{"color", "color"}, 
+    Renderer::Renderer() : m_window{}, m_shader{"texture", "texture"}, 
             m_models{}, m_wireframe{false} {
         init();
     }
@@ -22,19 +22,22 @@ namespace Client {
                 Client::ClientOptions::SCREEN_HEIGHT);
 
         std::vector<GLfloat> vertices{{
-                -0.5f,  -0.5f, 0.0f,    1.0f, 0.0f, 0.0f,
-                 0.0f,  -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,
-                -0.25f,  0.5f, 0.0f,    0.0f, 0.0f, 1.0f,
-                 0.25f,  0.5f, 0.0f,    1.0f, 0.0f, 1.0f,
-                 0.5f,  -0.5f, 0.0f,    0.0f, 1.0f, 1.0f,
+            // positions          // colors           // texture coords
+             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+             0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
         }};
         std::vector<GLuint> indices{{
-                0, 1, 2,
-                1, 2, 3,
-                1, 3, 4
+            0, 1, 2,
+            0, 2, 3
         }};
         
-        m_models.push_back(Model{vertices, indices});
+        m_models.push_back(gl::TexturedModel{vertices, indices, 
+                "assets/textures/grass_side.png"});
+
+        m_shader.bind();
+        glUniform1i(glGetUniformLocation(m_shader.ID, "textureData"), 0);
 
         return Status::Good;
     }

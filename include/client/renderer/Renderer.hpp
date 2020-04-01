@@ -5,7 +5,7 @@
 
 #include "client/gl/Shader.hpp"
 #include "client/sdl/Window.hpp"
-#include "client/renderer/Model.hpp"
+#include "client/gl/TexturedModel.hpp"
 
 namespace Client {
 
@@ -25,7 +25,7 @@ namespace Client {
 
         sdl::Window m_window;
         gl::Shader m_shader;
-        std::vector<Model> m_models;
+        std::vector<gl::TexturedModel> m_models;
         bool m_wireframe;
     };
 

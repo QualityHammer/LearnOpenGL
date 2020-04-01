@@ -7,6 +7,7 @@ const std::array<std::string,
         ErrorHandler::m_errorTypeStrings{{
             "Glad",
             "Shader",
+            "Image",
         }};
 
 const std::array<std::string,
@@ -17,6 +18,7 @@ const std::array<std::string,
             "Compilation failed!",
             "Linking failed!",
             "Glad failed to initialize OpenGL!",
+            "Failed to load image.",
         }};
 
 const std::array<std::string,
