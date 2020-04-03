@@ -12,6 +12,19 @@
 #include "client/sdl/Window.hpp"
 #include "common/util/ErrorHandler.hpp"
 
+glm::vec3 cubePositions[] = {
+  glm::vec3( 0.0f,  0.0f,  0.0f),
+  glm::vec3( 2.0f,  5.0f, -15.0f),
+  glm::vec3(-1.5f, -2.2f, -2.5f),
+  glm::vec3(-3.8f, -2.0f, -12.3f),
+  glm::vec3( 2.4f, -0.4f, -3.5f),
+  glm::vec3(-1.7f,  3.0f, -7.5f),
+  glm::vec3( 1.3f, -2.0f, -2.5f),
+  glm::vec3( 1.5f,  2.0f, -2.5f),
+  glm::vec3( 1.5f,  0.2f, -1.5f),
+  glm::vec3(-1.3f,  1.0f, -1.5f)
+};
+
 namespace Client {
 
     Renderer::Renderer() : m_window{}, m_shader{"texture", "texture"}, 
@@ -79,7 +92,8 @@ namespace Client {
             21, 22, 23,
             24, 25, 26,
             27, 28, 29,
-            30, 31, 32
+            30, 31, 32,
+            33, 34, 35
         }};
         
         m_models.push_back(gl::TexturedModel{vertices, indices, 
@@ -87,17 +101,8 @@ namespace Client {
 
         m_shader.bind();
         glUniform1i(glGetUniformLocation(m_shader.ID, "textureData"), 0);
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        glm::mat4 view = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         glm::mat4 projection = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-        GLint modelLoc = glGetUniformLocation(m_shader.ID, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        GLint viewLoc = glGetUniformLocation(m_shader.ID, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         GLint projectionLoc = glGetUniformLocation(m_shader.ID, "projection");
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
@@ -117,8 +122,25 @@ namespace Client {
         GLint rotationLoc = glGetUniformLocation(m_shader.ID, "rotation");
         glUniformMatrix4fv(rotationLoc, 1, GL_FALSE, glm::value_ptr(rotation));
 
-        for (const auto &model : m_models) {
-            model.render();
+        const float radius = 10.0f;
+        float camx = std::sin((float)SDL_GetTicks() / 500.0f) * radius;
+        float camz = std::cos((float)SDL_GetTicks() / 500.0f) * radius;
+        glm::mat4 view = glm::mat4(1.0f);
+        view = glm::lookAt(glm::vec3(camx, 0.0f, camz),
+                glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        GLint viewLoc = glGetUniformLocation(m_shader.ID, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+        for (unsigned int i{0}; i < 10; i++) {
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20.0f * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            GLint modelLoc = glGetUniformLocation(m_shader.ID, "model");
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+            for (const auto &texturedModel : m_models) {
+                texturedModel.render();
+            }
         }
         m_shader.unbind();
 
