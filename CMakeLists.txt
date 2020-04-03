@@ -46,16 +46,16 @@ target_compile_options(${PROJECT_NAME}
     -pedantic
 )
 
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/
-    ${GLM_INCLUDE_DIR}
-    ${SDL2_INCLUDE_DIR}
-)
-
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
+
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+    ${GLM_INCLUDE_DIR}
+    ${SDL2_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/
+)
 
 add_subdirectory(dependencies)
 
